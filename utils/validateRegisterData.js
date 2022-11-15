@@ -3,11 +3,7 @@ var validatePassword = require("./validatePassword");
 var validateLogin = require("./validateLogin");
 
 var validateRegisterData = function(formData){
-    var errors = {
-        error: true
-    };
-
-    var success = {
+    var result = {
         error: false
     };
 
@@ -18,25 +14,21 @@ var validateRegisterData = function(formData){
     var login_result = validateLogin(formData.login);
 
     if(email_result.error){
-        errors.email = email_result;
-        var value = false;
+        result.errors.email = email_result;
+        result.error = true;
     }
 
     if(password_result.error){
-        errors.password = password_result;
-        var value = false;
+        result.errors.password = password_result;
+        result.error = true;
     }
 
     if(login_result.error){
-        errors.login = login_result;
-        var value = false;
+        result.errors.login = login_result;
+        result.error = true;
     }
 
-    if(!value){
-        return errors;
-    }
-
-    return success;
+    return result;
 }
 
 module.exports = validateRegisterData;
