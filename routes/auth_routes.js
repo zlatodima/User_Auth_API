@@ -50,7 +50,7 @@ router.post("/register", async function(req, res){
 
 });
 
-router.post("/login", function(req, res){
+router.post("/login", async function(req, res){
     var formData = req.body.formData;
     var result = validateLoginData(formData);
 
@@ -58,6 +58,29 @@ router.post("/login", function(req, res){
         return res.status(400).json(result);
     }
 
+    try{
+        var user = await User.collection.findOne({login: formData.login});
+        if(!user){
+            res.status(400).json({error: true, text: "login or password is incorrect!"});
+        }
+
+        var verifiedPassword = await bcrypt.compare(formData.password, user.password);
+        if(!verifiedPassword){
+            res.status(400).json({error: true, text: "login or password is incorrect!"});
+        }
+
+        var {accessToken, refreshToken} = createTokens(user);
+
+        return res.status(200).json({
+            error: false,
+            accessToken,
+            refreshToken,
+            message: "You logged in succesfully!"
+        });
+    }
+    catch(err){
+        console.log(err);
+    }
 
 });
 
