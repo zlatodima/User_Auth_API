@@ -10,6 +10,6 @@ DBConnect();
 
 var authRoutes = require("./routes/auth_routes");
 app.use("/api", authRoutes);
-
+ 
 const port = process.env.PORT;
 app.listen(port);
