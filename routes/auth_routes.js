@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var validateRegisterData = require("../utils/validateRegisterData");
+var validateLoginData = require("../utils/validateLoginData");
 var User = require("../models/User");
 var bcrypt = require("bcrypt");
 var createTokens = require("../utils/createTokens");
@@ -50,7 +51,12 @@ router.post("/register", async function(req, res){
 });
 
 router.post("/login", function(req, res){
-    
+    var formData = req.body.formData;
+    var result = validateLoginData(formData);
+
+    if(result.error){
+        return res.status(400).json(result);
+    }
 });
 
 module.exports = router;
