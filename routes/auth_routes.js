@@ -16,12 +16,12 @@ router.post("/register", async function(req, res){
 
     try{
         var user = await User.collection.findOne({email: formData.email});
-        if(document){
+        if(user){
             res.status(400).json({error: true, text: "User with this email or login exist!"});
         }
 
         user = await User.collection.findOne({login: formData.login});
-        if(document){
+        if(user){
             res.status(400).json({error: true, text: "User with this email or login exist!"});
         }
 
@@ -57,6 +57,8 @@ router.post("/login", function(req, res){
     if(result.error){
         return res.status(400).json(result);
     }
+
+
 });
 
 module.exports = router;
