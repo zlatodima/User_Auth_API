@@ -7,7 +7,7 @@ router.post("/register", function(req, res){
     var result = validateRegisterData(formData);
 
     if(result.error){
-        return res.status(400).json(result)
+        return res.status(400).json(result);
     }
 
     
