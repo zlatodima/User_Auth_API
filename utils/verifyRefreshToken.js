@@ -20,3 +20,5 @@ var verifyRefreshToken = async function(refreshToken){
     }
 
 }
+
+module.exports = verifyRefreshToken;
