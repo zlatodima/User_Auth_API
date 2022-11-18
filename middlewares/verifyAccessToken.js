@@ -6,6 +6,7 @@ var verifyAccessToken = async function(req, res){
     if(!payloadAccessToken){
         res.status(400).json({error: true, text: "Invalid token!"});
     }
+    req.userPayload = payloadAccessToken;
     next();
 }
 
