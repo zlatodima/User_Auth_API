@@ -1,6 +1,6 @@
 var jwt = require("jsonwebtoken");
 var verifyAccessToken = async function(req, res){
-    var accessToken = req.body.accessToken;
+    var accessToken = req.bearerToken;
 
     var payloadAccessToken = await jwt.verify(accessToken, process.env.SECRET);
     if(!payloadAccessToken){
