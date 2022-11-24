@@ -5,6 +5,7 @@ var validateLoginData = require("../utils/validateLoginData");
 var User = require("../models/User");
 var bcrypt = require("bcrypt");
 var createTokens = require("../utils/createTokens");
+var verifyAccessToken = require("../middlewares/verifyAccessToken");
 
 router.post("/register", async function(req, res){
     var formData = req.body.formData;
@@ -82,6 +83,10 @@ router.post("/login", async function(req, res){
         console.log(err);
     }
 
+});
+
+router.get("/user", verifyAccessToken, async function(req, res){
+ 
 });
 
 module.exports = router;
