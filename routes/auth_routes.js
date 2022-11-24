@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var validateRegisterData = require("../utils/validateRegisterData");
 var validateLoginData = require("../utils/validateLoginData");
+var validateProfileData = require("../utils/validateProfileData");
 var User = require("../models/User");
 var bcrypt = require("bcrypt");
 var createTokens = require("../utils/createTokens");
@@ -86,7 +87,12 @@ router.post("/login", async function(req, res){
 });
 
 router.get("/user", verifyAccessToken, async function(req, res){
- 
+    var profileUserData = req.body.profileUserData;
+    var result = validateProfileData(profileUserData);
+
+    if(result.error){
+        return res.status(400).json(result);
+    }
 });
 
 module.exports = router;
