@@ -88,6 +88,28 @@ router.post("/login", async function(req, res){
 
 router.get("/user", verifyAccessToken, async function(req, res){
     var user_id = req.userPayload.userId;
+
+    try{
+        var user = await User.collection.findOne({_id: user_id});
+
+        if(!user){
+            return res.status(400).json({error: true, text: "Not found any matching user with specified id!"});
+        }
+
+        return res.status(200).json({error: false, profileData: {
+            username: user.userName,
+            age: user.age,
+            description: user.description
+        },
+        text: "Profile data is recieved successfully!"});
+    }
+    catch(err){
+        console.log(err);
+    }
+});
+
+router.post("/user", verifyAccessToken, async function(req, res){
+    var user_id = req.userPayload.userId;
     var profile_data = req.profileData;
     var profileUserData = req.body.profileUserData;
     var result = validateProfileData(profileUserData);
@@ -116,5 +138,7 @@ router.get("/user", verifyAccessToken, async function(req, res){
         console.log(err);
     }
 });
+
+
 
 module.exports = router;
