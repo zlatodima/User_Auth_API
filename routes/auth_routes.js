@@ -6,7 +6,9 @@ var validateProfileData = require("../utils/validateProfileData");
 var User = require("../models/User");
 var bcrypt = require("bcrypt");
 var createTokens = require("../utils/createTokens");
+var createAccessToken = require("../utils/createAccessToken");
 var verifyAccessToken = require("../middlewares/verifyAccessToken");
+var verifyRefreshToken = require("../utils/verifyRefreshToken");
 var verifyBearerTokenHeader = require("../middlewares/verifyBearerTokenHeader");
 
 router.post("/register", async function(req, res){
@@ -85,6 +87,27 @@ router.post("/login", async function(req, res){
         console.log(err);
     }
 
+});
+
+router.post("/refreshToken", async function(req, res){
+    var refreshToken = req.body.refreshToken;
+    try{
+        var refreshTokenPayload = await verifyRefreshToken(refreshToken);
+        var accessTokenPayload = {
+            _id: refreshTokenPayload._id,
+            role: refreshTokenPayload.role
+        }
+        var accessToken = createAccessToken(accessTokenPayload);
+
+        return res.status(200).json({
+            error: false,
+            accessToken
+        });
+    }
+    catch(err){
+        return res.status(400).json(err);
+    }
+    
 });
 
 router.get("/user", verifyBearerTokenHeader, verifyAccessToken, async function(req, res){
