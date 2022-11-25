@@ -7,6 +7,7 @@ var User = require("../models/User");
 var bcrypt = require("bcrypt");
 var createTokens = require("../utils/createTokens");
 var verifyAccessToken = require("../middlewares/verifyAccessToken");
+var verifyBearerTokenHeader = require("../middlewares/verifyBearerTokenHeader");
 
 router.post("/register", async function(req, res){
     var formData = req.body.formData;
@@ -86,7 +87,7 @@ router.post("/login", async function(req, res){
 
 });
 
-router.get("/user", verifyAccessToken, async function(req, res){
+router.get("/user", verifyBearerTokenHeader, verifyAccessToken, async function(req, res){
     var user_id = req.userPayload.userId;
 
     try{
@@ -108,7 +109,7 @@ router.get("/user", verifyAccessToken, async function(req, res){
     }
 });
 
-router.post("/user", verifyAccessToken, async function(req, res){
+router.post("/user", verifyBearerTokenHeader, verifyAccessToken, async function(req, res){
     var user_id = req.userPayload.userId;
     var profile_data = req.profileData;
     var profileUserData = req.body.profileUserData;

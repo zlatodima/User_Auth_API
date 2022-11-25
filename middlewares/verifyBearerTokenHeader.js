@@ -13,5 +13,6 @@ var verifyBearerTokenHeader = function(req, res, next){
 
     req.accessToken = bearerToken;
     next();
-
 }
+
+module.exports = verifyBearerTokenHeader;
