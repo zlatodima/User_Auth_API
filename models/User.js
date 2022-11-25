@@ -25,6 +25,12 @@ var UserSchema = new Schema({
         enum: ["user", "admin"],
         default: ["user"],
     },
+    age: {
+        type: Number
+    },
+    description: {
+        type: String
+    }
 });
 
 var User = mongoose.model("User", UserSchema);
