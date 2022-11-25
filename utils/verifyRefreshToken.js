@@ -16,7 +16,7 @@ var verifyRefreshToken = async function(refreshToken){
         return payload;
     }
     catch(err){
-        throw new Error("Invalid Token!");
+        throw new Error(err);
     }
 
 }
