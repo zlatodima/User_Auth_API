@@ -87,11 +87,33 @@ router.post("/login", async function(req, res){
 });
 
 router.get("/user", verifyAccessToken, async function(req, res){
+    var user_id = req.userPayload.userId;
+    var profile_data = req.profileData;
     var profileUserData = req.body.profileUserData;
     var result = validateProfileData(profileUserData);
 
     if(result.error){
         return res.status(400).json(result);
+    }
+
+    try{
+        var updatedDocument = await User.collection.findOneAndUpdate({_id: user_id}, {
+            userName: profile_data.username, 
+            age: profile_data.age,
+            description: profile_data.description
+        },
+        {
+            returnDocument: "after"
+        });
+
+        if(!updatedDocument){
+            return res.status(400).json({error: true, text: "Not found any matching user with specified id!"});
+        }
+
+        return res.status(200).json({error: false, text: "Profile data updated successfully!"});
+    }
+    catch(err){
+        console.log(err);
     }
 });
 
