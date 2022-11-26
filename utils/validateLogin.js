@@ -3,7 +3,7 @@ var validateLogin = function(login){
         error: false
     }
 
-    if(login < 6 || login > 30){
+    if(login.length < 6 || login.length > 30){
         result = {
             error: true,
             message: "Login must contain from 6 to 30 characters!" 
