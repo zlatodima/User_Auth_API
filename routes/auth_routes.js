@@ -30,13 +30,13 @@ router.post("/register", async function(req, res){
             res.status(400).json({error: true, text: "User with this email or login exist!"});
         }
 
-        var hashPassword = await bcrypt.genSalt(process.env.SALT);
+        var hashPassword = await bcrypt.hash(formData.password, Number(process.env.SALT));
 
         var user = await new User({
             userName: formData.login,
             login: formData.login,
             email: formData.email,
-            password: formData.password
+            password: hashPassword
         });
 
         user.save();
