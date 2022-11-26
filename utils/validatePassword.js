@@ -6,7 +6,7 @@ var validatePassword = function(password){
     if(password.length < 8 || password.length > 30){
         result = {
             error: true,
-            message: "Login must contain from 8 to 30 characters!" 
+            message: "Password must contain from 8 to 30 characters!" 
         }
     }
     return result;
