@@ -4,7 +4,8 @@ var validateLogin = require("./validateLogin");
 
 var validateRegisterData = function(formData){
     var result = {
-        error: false
+        error: false,
+        errors: {}
     };
 
     var value = true;
