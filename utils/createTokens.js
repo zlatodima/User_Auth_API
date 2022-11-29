@@ -31,3 +31,5 @@ var createTokens = async function(user){
     }
 
 }
+
+module.exports = createTokens;
