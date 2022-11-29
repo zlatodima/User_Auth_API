@@ -14,7 +14,7 @@ var createTokens = async function(user){
 
         var oldToken = await Token.collection.findOne({userId: user._id});
         if(oldToken){
-            oldToken.remove();
+            Token.collection.deleteOne({userId: user._id});
         }
 
         var token = await new Token({
