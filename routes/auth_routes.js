@@ -74,7 +74,7 @@ router.post("/login", async function(req, res){
             res.status(400).json({error: true, text: "login or password is incorrect!"});
         }
 
-        var {accessToken, refreshToken} = createTokens(user);
+        var {accessToken, refreshToken} = await createTokens(user);
 
         return res.status(200).json({
             error: false,
