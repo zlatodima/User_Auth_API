@@ -7,7 +7,7 @@ var verifyRefreshToken = async function(refreshToken){
             throw new Error("Invalid Token!");
         }
 
-        var dbRefreshToken = await Token.collection.findOne({userId: payloadRefreshToken._id});
+        var dbRefreshToken = await Token.collection.findOne({token: refreshToken});
 
         if(!dbRefreshToken){
             throw new Error("Invalid Token!");
