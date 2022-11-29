@@ -1,5 +1,5 @@
 var jwt = require("jsonwebtoken");
-var verifyAccessToken = async function(req, res){
+var verifyAccessToken = async function(req, res, next){
     var accessToken = req.accessToken;
 
     try{
