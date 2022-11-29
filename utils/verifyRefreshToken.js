@@ -1,5 +1,5 @@
 var jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const Token = require("../models/Token");
 var verifyRefreshToken = async function(refreshToken){
     try{
         var payloadRefreshToken = await jwt.verify(refreshToken, process.env.SECRET);
@@ -7,13 +7,13 @@ var verifyRefreshToken = async function(refreshToken){
             throw new Error("Invalid Token!");
         }
 
-        var dbRefreshToken = await User.collection.findOne({userId: payload._id});
+        var dbRefreshToken = await Token.collection.findOne({userId: payloadRefreshToken._id});
 
         if(!dbRefreshToken){
             throw new Error("Invalid Token!");
         }
 
-        return payload;
+        return payloadRefreshToken;
     }
     catch(err){
         throw new Error(err);
