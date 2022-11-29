@@ -22,7 +22,7 @@ var createTokens = async function(user){
             token: refreshToken,
         });
 
-        token.save();
+        await token.save();
 
         return Promise.resolve({accessToken, refreshToken});
     }

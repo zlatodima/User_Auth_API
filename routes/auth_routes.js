@@ -39,9 +39,9 @@ router.post("/register", async function(req, res){
             password: hashPassword
         });
 
-        user.save();
+        await user.save();
         
-        var {accessToken, refreshToken} = createTokens(user);
+        var {accessToken, refreshToken} = await createTokens(newUser);
         return res.status(200).json({
             error: false,
             accessToken,
