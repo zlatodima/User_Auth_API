@@ -10,6 +10,7 @@ var createAccessToken = require("../utils/createAccessToken");
 var verifyAccessToken = require("../middlewares/verifyAccessToken");
 var verifyRefreshToken = require("../utils/verifyRefreshToken");
 var verifyBearerTokenHeader = require("../middlewares/verifyBearerTokenHeader");
+const { ObjectId } = require('mongodb');
 
 router.post("/register", async function(req, res){
     var formData = req.body.formData;
@@ -111,7 +112,7 @@ router.post("/refreshToken", async function(req, res){
 });
 
 router.get("/user", verifyBearerTokenHeader, verifyAccessToken, async function(req, res){
-    var user_id = req.userPayload.userId;
+    var user_id = ObjectId(req.userPayload._id);
 
     try{
         var user = await User.collection.findOne({_id: user_id});
