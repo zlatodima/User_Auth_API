@@ -8,7 +8,7 @@ var validateUserName = function(username){
         result.error = true;
     }
 
-    return number;
+    return result;
 }
 
 module.exports = validateUserName;
