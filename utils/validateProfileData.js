@@ -3,7 +3,8 @@ var validateAge = require("./validateAge");
 
 var validateProfileData = function(userData){
     var result = {
-        error: false
+        error: false,
+        errors: {}
     }
 
     var username_result = validateUserName(userData.username);
