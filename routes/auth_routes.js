@@ -134,7 +134,7 @@ router.get("/user", verifyBearerTokenHeader, verifyAccessToken, async function(r
 });
 
 router.post("/user", verifyBearerTokenHeader, verifyAccessToken, async function(req, res){
-    var user_id = req.userPayload.userId;
+    var user_id = ObjectId(req.userPayload.userId);
     var profileUserData = req.body.profileUserData;
     var result = validateProfileData(profileUserData);
 
