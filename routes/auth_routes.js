@@ -135,7 +135,6 @@ router.get("/user", verifyBearerTokenHeader, verifyAccessToken, async function(r
 
 router.post("/user", verifyBearerTokenHeader, verifyAccessToken, async function(req, res){
     var user_id = req.userPayload.userId;
-    var profile_data = req.profileData;
     var profileUserData = req.body.profileUserData;
     var result = validateProfileData(profileUserData);
 
@@ -145,9 +144,9 @@ router.post("/user", verifyBearerTokenHeader, verifyAccessToken, async function(
 
     try{
         var updatedDocument = await User.collection.findOneAndUpdate({_id: user_id}, {
-            userName: profile_data.username, 
-            age: profile_data.age,
-            description: profile_data.description
+            userName: profileUserData.username, 
+            age: profileUserData.age,
+            description: profileUserData.description
         },
         {
             returnDocument: "after"
