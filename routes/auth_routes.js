@@ -134,7 +134,7 @@ router.get("/user", verifyBearerTokenHeader, verifyAccessToken, async function(r
 });
 
 router.post("/user", verifyBearerTokenHeader, verifyAccessToken, async function(req, res){
-    var user_id = ObjectId(req.userPayload.userId);
+    var user_id = ObjectId(req.userPayload._id);
     var profileUserData = req.body.profileUserData;
     var result = validateProfileData(profileUserData);
 
@@ -149,9 +149,6 @@ router.post("/user", verifyBearerTokenHeader, verifyAccessToken, async function(
                 age: profileUserData.age,
                 description: profileUserData.description
             }
-        },
-        {
-            returnDocument: "after"
         });
 
         if(!updatedDocument){
