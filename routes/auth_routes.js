@@ -144,9 +144,11 @@ router.post("/user", verifyBearerTokenHeader, verifyAccessToken, async function(
 
     try{
         var updatedDocument = await User.collection.findOneAndUpdate({_id: user_id}, {
-            userName: profileUserData.username, 
-            age: profileUserData.age,
-            description: profileUserData.description
+            $set: { 
+                userName: profileUserData.username, 
+                age: profileUserData.age,
+                description: profileUserData.description
+            }
         },
         {
             returnDocument: "after"
